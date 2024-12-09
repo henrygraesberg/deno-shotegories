@@ -6,7 +6,7 @@ An API for getting a random category for a game of categories, and potentially a
 
 ## Using the API
 ### With the public endpoint
-The API is hosted on [Deno Deploy]([https://glitch.com](https://deno.com/deploy)), and running on ["https://shotegories.graesberg.com/api"](https://shotegories.graesberg.com/api)\
+The API is hosted on [Deno Deploy](https://deno.com/deploy), and running on ["https://shotegories.graesberg.com/api"](https://shotegories.graesberg.com/api)\
 From here it can be used the same as if it was running locally, with the query option ```?withLetter=true``` returning an object with a category and letter, and anything else returning only a category. A simple frontend is also hosted with Deno Deploy, at the [root](https://shotegories.graesberg.com), which queries the API and displays a category, with the option to include a letter in the response.
 
 ### Locally
