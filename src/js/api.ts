@@ -4,7 +4,7 @@ const sendShotegory = async (req: Request): Promise<Response> => {
   let categories: Array<string> = []
   
   try {
-    categories = (await import("../data/categories.json", {
+    categories = (await import("@/data/categories.json", {
       with: {
       type: "json"
       }

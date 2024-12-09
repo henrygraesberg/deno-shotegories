@@ -1,5 +1,5 @@
 import { serveFile } from "@std/http/file-server"
-import apiHandler from "./js/api.ts"
+import apiHandler from "@/js/api.ts"
 
 const httpPort = Number(Deno.env.get("HTTP_PORT")) || 3000
 
