@@ -38,6 +38,16 @@ interface ShotegoriesResponse {
 ```
 if you do
 
+If there is a 500 error, the return will match:
+```ts
+interface ShotegoriesErrorResponse {
+  error: "Internal server error"
+  errorStack: {
+    code: string
+  }
+}
+```
+
 Ergo, a response to a request sent to ```http://localhost:3000/api``` could look like:
 ```json
 {
@@ -49,6 +59,15 @@ and a response to a request sent to ```http://localhost:3000/api?withLetter=true
 {
   "category": "Alcohol brands",
   "letter": "S"
+}
+```
+while a failed response could look like:
+```json
+{
+  "error": "Internal server error",
+  "errorStack": {
+    "code": "ERR_MODULE_NOT_FOUND" //The error code if the server cannot find the categories.json file
+  }
 }
 ```
 
