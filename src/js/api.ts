@@ -13,16 +13,12 @@ const sendShotegory = async (req: Request): Promise<Response> => {
     return Response.json({error: "Internal server error", errorStack: err}, {status: 500})
   }
 
-  const withLetter = new URL(req.url).searchParams.get("withLetter")
+  const withLetter = new URL(req.url).searchParams.get("withLetter") == "true"
 
-  const response = withLetter == "true"
-  ?
-  {
+  const response = withLetter ? {
     category: categories[Math.floor(Math.random() * categories.length)],
     letter: alphabet[Math.floor(Math.random() * alphabet.length)]
-  }
-  :
-  {
+  } : {
     category: categories[Math.floor(Math.random() * categories.length)],
   }
   
