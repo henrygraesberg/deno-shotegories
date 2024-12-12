@@ -1,7 +1,15 @@
+// deno-lint-ignore-file
+
 const redoForm = document.querySelector('form')
 
 const categoryDiv = document.getElementById('category')
 const letterDiv = document.getElementById('letter')
+
+window.addEventListener("keydown", event => {
+  if(event.key != "Enter") return
+
+  newCategory({preventDefault: () => {}})
+})
 
 async function newCategory(e) {
   e.preventDefault()
