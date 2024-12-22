@@ -36,6 +36,28 @@ interface ShotegoriesResponse {
 ```
 if you do
 
+To prevent certain categories from being rolled, simply add them to an array called ```preventCategories``` in the body of the request\
+Example using fetch:
+```ts
+const response = await fetch("https://shotegories.graesberg.com/api" {
+  method: "POST",
+  body: JSON.stringify({
+    preventCategories: ["Artists", "Citites", "Shooter games"]
+    //Keep in mind, it is case sensitive
+  })
+})
+
+const category = await response.json()
+/*
+Example response:
+{
+  category: "Pokémon"
+}
+
+Works as normal, but is guaranteed to not match any categories from the "preventCategories" array
+*/
+```
+
 If there is a 500 error, the return will match:
 ```ts
 interface ShotegoriesErrorResponse {

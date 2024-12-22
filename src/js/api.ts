@@ -1,3 +1,15 @@
+interface RequestBody {
+  preventCategories?: string[]
+}
+
+const rollRandomCategory = (categories: Array<string>, lastCategory?: string[]): string => {
+  let category = categories[Math.floor(Math.random() * categories.length)]
+  if (lastCategory?.every((cat) => cat != category)) {
+    category = rollRandomCategory(categories, lastCategory)
+  }
+  return category
+}
+
 const sendShotegory = async (req: Request): Promise<Response> => {
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")
 
@@ -15,11 +27,20 @@ const sendShotegory = async (req: Request): Promise<Response> => {
 
   const withLetter = new URL(req.url).searchParams.get("withLetter") == "true"
 
+  let body: RequestBody | null = null
+
+  try {
+    body = await req.json() as RequestBody
+  }
+  catch {
+    body = null
+  }
+
   const response = withLetter ? {
-    category: categories[Math.floor(Math.random() * categories.length)],
+    category: rollRandomCategory(categories, body?.preventCategories),
     letter: alphabet[Math.floor(Math.random() * alphabet.length)]
   } : {
-    category: categories[Math.floor(Math.random() * categories.length)],
+    category: rollRandomCategory(categories, body?.preventCategories),
   }
   
   return Response.json(response)

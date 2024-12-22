@@ -8,25 +8,35 @@ const letterDiv = document.getElementById('letter')
 window.addEventListener("keydown", event => {
   if(event.key != "Enter") return
 
-  newCategory({preventDefault: () => {}})
+  newCategory({ preventDefault: () => {} })
 })
 
 async function newCategory(e) {
   e.preventDefault()
 
-  const withLetter = redoForm.querySelector('input[type="checkbox"]').checked
+  const withLetter = redoForm.querySelector('input[name="withLetter"]').checked
+  const preventLastCategory = redoForm.querySelector('input[name="preventLastCategory"]').checked
 
   let data = {}
 
   try {
     let httpStatus = null
 
+    const lastCategory = preventLastCategory ? categoryDiv.querySelector('p').innerText : null
+
     categoryDiv.querySelector('p').innerText = "loading..."
 
     if (withLetter) {
       letterDiv.querySelector('p').innerText = "loading..."
 
-      const response = await fetch(`/api?withLetter=true`)
+      const response = await fetch(`/api?withLetter=true`,
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            preventCategories: [lastCategory]
+          })
+        }
+      )
 
       httpStatus = response.status
 
@@ -34,7 +44,12 @@ async function newCategory(e) {
     } else {
       letterDiv.querySelector('p').innerText = ""
 
-      const response = await fetch(`/api`)
+      const response = await fetch(`/api`, {
+        method: 'POST',
+        body: JSON.stringify({
+          preventCategories: [lastCategory]
+        })
+      })
 
       httpStatus = response.status
 
@@ -51,8 +66,10 @@ async function newCategory(e) {
     console.error(err)
 
     document.querySelector("body").innerHTML = `
-    <h1>An error occured</h1>
-    <p>See console for more information</p>
+    <div style="margin: 2ch;">
+      <h1>An error occured</h1>
+      <p>See console for more information</p>
+    </div>
     `
   }
 }
