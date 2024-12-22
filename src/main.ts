@@ -16,6 +16,10 @@ Deno.serve({ port: httpPort, hostname: "localhost" }, (req) => {
     return serveFile(req, "./src/css/index.html.css")
   }
 
+  if (pathname == "/favicon.ico") {
+    return Response.redirect("https://em-content.zobj.net/source/apple/391/cocktail-glass_1f378.png", 302)
+  }
+
   if (pathname == "/api") {
     return apiHandler(req)
   }
