@@ -2,13 +2,13 @@ interface RequestBody {
   preventCategories?: string[]
 }
 
-const rollRandomCategory = (categories: Array<string>, lastCategory?: string[]): string => {
+const rollRandomCategory = (categories: Array<string>, preventedCategories?: string[]): string => {
   let category = categories[Math.floor(Math.random() * categories.length)]
 
-  if (lastCategory?.filter((cat) => cat == category).length != 0) {
-    category = rollRandomCategory(categories, lastCategory)
+  if (preventedCategories != null && preventedCategories.filter((cat) => cat == category).length != 0) {
+    category = rollRandomCategory(categories, preventedCategories)
   }
-  
+
   return category
 }
 
