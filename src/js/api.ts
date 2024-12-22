@@ -4,9 +4,11 @@ interface RequestBody {
 
 const rollRandomCategory = (categories: Array<string>, lastCategory?: string[]): string => {
   let category = categories[Math.floor(Math.random() * categories.length)]
-  if (lastCategory?.every((cat) => cat != category)) {
+
+  if (lastCategory?.filter((cat) => cat == category).length != 0) {
     category = rollRandomCategory(categories, lastCategory)
   }
+  
   return category
 }
 
