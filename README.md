@@ -82,7 +82,7 @@ and a response to a request sent to ```http://localhost:3000/api?withLetter=true
 }
 ```
 while a failed response could look like:
-```json
+```js
 {
   "error": "Internal server error",
   "errorStack": {
